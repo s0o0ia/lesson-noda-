@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        form{
+            display: flex;
+            flex-flow: column;
+        }
+        input{
+            width: 300px;
+            margin: 5px 0px;
+        }
+        button{
+            width: 50px;    
+        }
+    </style>
+</head>
+<body>
+     <h1>register</h1>
+     
+    <form action="/register" method="POST">
+        <input type="text" name='name' placeholder="name">
+        <input type="text" name='surname' placeholder="surname">
+        <input type="text" name='tel' placeholder="phone">
+        <input type="text" name='email' placeholder="email">
+        <button>send</button>
+    </form>
+
+</body>
+</html>
