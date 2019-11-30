@@ -1,14 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-</head>
-<body>
-     <h1>main</h1>
-     
-     <a href="/about">
-        about
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="css/style.css" /> -->
+    <style>
+      img {
+        width: 30px;
+        height: 30px;
+      }
+      .list div {
+        display: flex;
+        align-items: center;
+      }
+      .list div p {
+        margin: 5px;
+      }
+      .usser{
+        overflow: hidden;
+        height: 25px;
+        width: 50px;
+        display: flex;
+        flex-flow: column;
+      }
+      .active_usser{
+        margin: auto;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>main</h1>
+    <a href="/about">
+      about
     </a>
-</body>
+    <a href="/register">
+      register
+    </a>
+    <br />
+    <hr />
+    <br />
+    <div class="list"></div>
+
+    <script>
+      function render(el) {
+        let p = "";
+        el.users.forEach(function(item) {
+          return (p += `<div class='usser' onclick="oopen(this)">
+
+              <p>${item.name} </p> 
+              <p>${item.surname} </p> 
+              <p>${item.tel} </p> 
+              <p>${item.email} </p> 
+              <img onclick="remove(this)" src="https://static.thenounproject.com/png/55049-200.png" alt="">
+          </div>`);
+        });
+        document.querySelector(".list").innerHTML = p;
+      }
+      function remove(el){
+          console.log(id.closest(div))
+      }
+      function oopen(el){
+        el.classList.toggle('active_usser')
+      }
+      fetch("http://localhost:4000/db")
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+          render(json);
+        });
+    </script>
+  </body>
 </html>
