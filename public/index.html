@@ -5,6 +5,10 @@
     <title>Document</title>
     <!-- <link rel="stylesheet" href="css/style.css" /> -->
     <style>
+      body{
+        text-align: center;
+        font-family: sans-serif;
+      }
       img {
         width: 30px;
         height: 30px;
@@ -16,17 +20,15 @@
       .list div p {
         margin: 5px;
       }
-      .usser{
-        overflow: hidden;
-        height: 25px;
-        width: 50px;
-        display: flex;
-        flex-flow: column;
+      a {
+          margin: 5px;
+          color: #000;
+          text-transform: uppercase;
+          text-decoration: none;
       }
-      .active_usser{
-        margin: auto;
-        height: 100%;
-        width: 100%;
+      h1{
+          text-transform: uppercase;
+
       }
     </style>
   </head>
@@ -47,29 +49,40 @@
       function render(el) {
         let p = "";
         el.users.forEach(function(item) {
-          return (p += `<div class='usser' onclick="oopen(this)">
-
+          return (p += `<div id='${item.id}'>
               <p>${item.name} </p> 
               <p>${item.surname} </p> 
               <p>${item.tel} </p> 
               <p>${item.email} </p> 
-              <img onclick="remove(this)" src="https://static.thenounproject.com/png/55049-200.png" alt="">
+              <img src="https://static.thenounproject.com/png/55049-200.png" alt=""  onclick="remove(this)">
           </div>`);
         });
+
         document.querySelector(".list").innerHTML = p;
       }
-      function remove(el){
-          console.log(id.closest(div))
-      }
-      function oopen(el){
-        el.classList.toggle('active_usser')
-      }
-      fetch("http://localhost:4000/db")
+
+
+      function getUsers(el){
+        fetch("http://localhost:4000/db")
         .then(response => response.json())
         .then(json => {
-          console.log(json);
           render(json);
         });
+      }
+      
+      function remove(id){
+        var a = id.closest('div').getAttribute('id');
+        fetch(`/remove_user/${a}` , {
+          method: "DELETE"
+        }).then(res =>{
+          if(res.status == 200){
+            getUsers();
+          }
+        });
+        
+      }
+
+      getUsers();
     </script>
   </body>
 </html>
